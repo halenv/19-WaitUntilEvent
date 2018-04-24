@@ -91,15 +91,23 @@ def sum_until_prime_input():
          The sum of the input integers is: 167
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #   The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    total = 0
+    while True:
+        x = int(input("input a positive integer please: "))
+        total = total + x
+        if is_prime(x):
+            print(total)
+            break
 
 
 def run_test_next_prime():
     """ Tests the   next_prime    function. """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement this TEST function.
+    # DONE: 3. Implement this TEST function.
     #   It TESTS the  wait_for_prime  function defined below.
     #   Include at least  ** 6 **  tests. (We supplied 5 tests for you.)
     #
@@ -163,6 +171,14 @@ def run_test_next_prime():
     # Test 6:
     print()
     print('TEST STARTED!  Has it ended?')
+    expected = 5
+    actual = next_prime(4)
+    print('Expected:', expected)
+    print('Actual:  ', actual)
+    print('TEST ENDED!')
+
+    print()
+    print('TEST STARTED!  Has it ended?')
 
     print('TEST ENDED!')
 
@@ -182,13 +198,19 @@ def next_prime(m):
       :type m: int
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
     #    -- Use (call) the   is_prime   function above appropriately.
     # ------------------------------------------------------------------
 
+    prime_num = m
+    while True:
+        if is_prime(prime_num):
+            break
+        prime_num = prime_num + 1
+    return prime_num
 
 def run_test_prime_gap():
     """ Tests the   prime_gap    function. """
@@ -315,7 +337,7 @@ def prime_gap(m):
       :type m: int
     """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   The testing code is already written for you (above).
     #
     # IMPLEMENTATION REQUIREMENT:
@@ -323,11 +345,25 @@ def prime_gap(m):
     #       (that you implemented) appropriately.
     # ------------------------------------------------------------------
 
+    x = 0
+    y = 1
+    gap = m
+    while True:
+        if m == 1:
+            return 2
+        if is_prime(x) and is_prime(y):
+            if y - x >= gap:
+                break
+
+        x = next_prime(x + 1)
+        y = next_prime(y + 1)
+    return x
+
 
 def run_test_wait_for_sum_of_cubes():
     """ Tests the   wait_for_sum_of_cubes    function. """
     # ------------------------------------------------------------------
-    # TODO: 6. Implement this TEST function.
+    # DONE: 6. Implement this TEST function.
     #   It TESTS the  wait_for_sum_of_cubes  function defined below.
     #   Include at least  ** 8 **  tests. (We supplied 6 tests for you.)
     #
@@ -403,7 +439,10 @@ def run_test_wait_for_sum_of_cubes():
     # Test 7:
     print()
     print('TEST STARTED!  Has it ended?')
-
+    expected = 3
+    actual = wait_for_sum_of_cubes(30.33)
+    print('Expected:', expected)
+    print('Actual:  ', actual)
     print('TEST ENDED!')
 
     # TO DO 6 (continued):
@@ -413,7 +452,10 @@ def run_test_wait_for_sum_of_cubes():
     # Test 8:
     print()
     print('TEST STARTED!  Has it ended?')
-
+    expected = 4
+    actual = wait_for_sum_of_cubes(100)
+    print('Expected:', expected)
+    print('Actual:  ', actual)
     print('TEST ENDED!')
 
 
@@ -462,7 +504,17 @@ def wait_for_sum_of_cubes(x):
     # But no fair using that in this function.
     # ------------------------------------------------------------------
 
-
+    n = 1
+    while True:
+        cube_sum = 0
+        for k in range(n):
+            cube_sum = cube_sum + ((k + 1) ** 3)
+        if x <= 1:
+            return 1
+        if cube_sum >= x:
+            break
+        n = n + 1
+    return n
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
